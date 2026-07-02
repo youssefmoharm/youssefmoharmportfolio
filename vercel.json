@@ -1,4 +1,4 @@
 {
-  "buildCommand": "cd moharm-portfolio && npm install && npm run build",
-  "outputDirectory": "moharm-portfolio/dist"
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist"
 }
