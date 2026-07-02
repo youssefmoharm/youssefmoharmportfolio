@@ -124,7 +124,8 @@ export default function Hero() {
             Contact Me
           </Button>
           <Button
-            href="/Youssef_Moharm_CV.pdf"
+            href="/Youssef-Moharm-resume.pdf"
+            download="Youssef-Moharm-Resume.pdf"
             variant="ghost"
             icon={FaDownload}
             className="text-text-muted hover:text-accent border border-white/10 hover:border-accent/40 rounded-xl2 px-5 py-3 transition-colors duration-300"
