@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install --prefix moharm-portfolio",
-  "buildCommand": "npm run build --prefix moharm-portfolio",
+  "installCommand": "cd moharm-portfolio && npm install",
+  "buildCommand": "cd moharm-portfolio && npm run build",
   "outputDirectory": "moharm-portfolio/dist"
 }
