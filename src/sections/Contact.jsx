@@ -1,25 +1,26 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPaperPlane, FaCheckCircle } from "react-icons/fa";
-import emailjs from "@emailjs/browser";
 import SectionWrapper from "../components/SectionWrapper";
 import SectionHeading from "../components/SectionHeading";
 import Card from "../components/Card";
 import FormField from "../components/FormField";
 import { SOCIAL_LINKS } from "../data/portfolioData";
 
-// ─── EmailJS config ────────────────────────────────────────────────────────────
-// 1. Create a free account at https://www.emailjs.com
-// 2. Add an Email Service and note the Service ID
-// 3. Create an Email Template and note the Template ID
-// 4. Copy your Public Key from Account > API Keys
-// Replace the three placeholders below with your actual values.
-const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
-// ──────────────────────────────────────────────────────────────────────────────
-
 const initialValues = { name: "", email: "", message: "" };
+
+const openEmailComposer = (subject, body) => {
+  const recipient = "youssefmoharm74@gmail.com";
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const composeWindow = window.open(gmailUrl, "_blank");
+
+  if (composeWindow) {
+    composeWindow.opener = null;
+  } else {
+    window.location.assign(mailtoUrl);
+  }
+};
 
 function validate(values) {
   const errors = {};
@@ -35,8 +36,6 @@ function validate(values) {
   }
   if (!values.message.trim()) {
     errors.message = "Please write a short message.";
-  } else if (values.message.trim().length < 10) {
-    errors.message = "Message should be at least 10 characters.";
   }
   return errors;
 }
@@ -46,7 +45,6 @@ export default function Contact() {
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
   const errors = validate(values);
@@ -68,41 +66,15 @@ export default function Contact() {
     setTouched({ name: true, email: true, message: true });
     if (hasErrors) return;
 
-    // If EmailJS is not configured yet, fall back to mailto
-    if (
-      EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" ||
-      EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" ||
-      EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY"
-    ) {
-      const mailto = `mailto:youssefmoharm74@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(values.name)}&body=${encodeURIComponent(values.message)}%0A%0AFrom: ${encodeURIComponent(values.email)}`;
-      window.location.href = mailto;
-      return;
-    }
+    const emailBody = [
+      `Name: ${values.name}`,
+      `Email: ${values.email}`,
+      "",
+      values.message,
+    ].join("\n");
 
-    setIsSubmitting(true);
-    setSubmitError(null);
-
-    try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          from_name: values.name,
-          from_email: values.email,
-          message: values.message,
-          to_name: "Youssef",
-        },
-        EMAILJS_PUBLIC_KEY
-      );
-      setSubmitted(true);
-      setValues(initialValues);
-      setTouched({});
-    } catch (err) {
-      console.error("EmailJS error:", err);
-      setSubmitError("Something went wrong. Please try emailing me directly at youssefmoharm74@gmail.com");
-    } finally {
-      setIsSubmitting(false);
-    }
+    const subject = `Portfolio Contact from ${values.name}`;
+    openEmailComposer(subject, emailBody);
   };
 
   return (
@@ -245,21 +217,12 @@ export default function Contact() {
 
                   <motion.button
                     type="submit"
-                    disabled={isSubmitting}
-                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                    whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
                     className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl2 bg-gradient-to-r from-primary to-accent px-6 py-3.5 font-semibold text-white shadow-glow-primary hover:shadow-glow-primary-lg transition-shadow duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? (
-                      <motion.span
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                        className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full"
-                      />
-                    ) : (
-                      <FaPaperPlane />
-                    )}
-                    {isSubmitting ? "Sending..." : "Send Message"}
+                    <FaPaperPlane />
+                    Send Message
                   </motion.button>
                 </motion.form>
               )}

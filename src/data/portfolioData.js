@@ -112,15 +112,15 @@ export const PROJECTS = [
     id: "misinformation",
     title: "Detecting Misinformation in News Articles",
     description:
-      "Fake news detection using a hybrid RoBERTa + linguistic features model with gated fusion. NLP Final Project — combines transformer embeddings with handcrafted linguistic signals for more robust classification.",
+      "Fake news detection using a hybrid RoBERTa and linguistic-feature model with gated fusion. NLP final project evaluated on the WELFake benchmark, combining transformer embeddings with handcrafted linguistic signals.",
     highlights: [
       "Fine-tuned RoBERTa with gated fusion of linguistic feature vectors",
       "Engineered stylometric and readability features alongside transformer embeddings",
-      "Evaluated on benchmark datasets with full precision/recall analysis",
+      "Evaluated on WELFake with precision, recall, F1, and per-class analysis",
     ],
     tech: ["Python", "PyTorch", "RoBERTa", "NLP", "Scikit-learn"],
     impact:
-      "Demonstrated that combining transformer embeddings with linguistic signals outperforms a vanilla RoBERTa baseline.",
+      "The project reports 0.9733 accuracy, precision, recall, and F1 on WELFake; real-news recall improved from 0.97 to 0.99 against its RoBERTa baseline.",
     github: "https://github.com/youssefmoharm/Detecting-Misinformation-in-News-Articles",
     demo: null,
     accent: "primary",
@@ -129,7 +129,7 @@ export const PROJECTS = [
     id: "fraud-detection",
     title: "Credit Card Fraud Detection",
     description:
-      "End-to-end ML pipeline for fraud detection on 300K+ real European cardholder transactions. Covers preprocessing, SMOTE balancing, feature scaling, hyperparameter tuning, and multi-model benchmarking.",
+      "ML pipeline for fraud detection using anonymized European cardholder transactions. Covers preprocessing, SMOTE balancing, feature scaling, hyperparameter tuning, and multi-model benchmarking.",
     highlights: [
       "Incorporated SMOTE for class imbalance and hyperparameter tuning",
       "Trained and evaluated SVM, KNN, Naive Bayes, and Random Forest",
@@ -137,7 +137,7 @@ export const PROJECTS = [
     ],
     tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "SMOTE"],
     impact:
-      "Achieved high precision and recall across multiple classifiers on a heavily imbalanced dataset.",
+      "Provides a structured comparison of supervised classifiers for an imbalanced fraud-detection task.",
     github: "https://github.com/youssefmoharm/Credit-card-fraud-detector-",
     demo: null,
     accent: "accent",
@@ -195,6 +195,61 @@ export const PROJECTS = [
     demo: null,
     accent: "primary",
   },
+  {
+    id: "text-to-sql-platform",
+    title: "Multi-Tenant Text-to-SQL Platform",
+    description:
+      "A multi-tenant platform that connects PostgreSQL databases and uploaded documents to natural-language chat. It generates validated, read-only SQL and returns grounded database, document, and hybrid answers with citations.",
+    highlights: [
+      "Enforces tenant-scoped authentication, encrypted database credentials, and table, column, and row permissions",
+      "Validates read-only SQL with SQLGlot and applies row filters, statement timeouts, and result limits",
+      "Supports document retrieval and hybrid answers with citations and auditable query executions",
+    ],
+    tech: ["Python", "FastAPI", "PostgreSQL", "SQLGlot", "pgvector", "SQLAlchemy", "Docker"],
+    impact:
+      "Combines permission-aware database querying and document retrieval with traceable answers in one API.",
+    github: "https://github.com/youssefmoharm/iti-text-to-sql-platform",
+    demo: null,
+    accent: "accent",
+  },
+  {
+    id: "nerve",
+    title: "NERVE",
+    description:
+      "NERVE is a modern fashion e-commerce platform focused on delivering a smooth, responsive, and professional online shopping experience, including product discovery, product details, cart functionality, checkout, and order management.",
+    highlights: [
+      "Built a full-stack shopping experience with product catalog, discovery, and filtering",
+      "Integrated cart, checkout flow, and order management for a retail workflow",
+      "Designed a polished, responsive storefront with modern UI/UX patterns",
+    ],
+    tech: ["React", "Node.js", "MongoDB", "Tailwind", "Authentication", "E-Commerce"],
+    impact:
+      "Provides a conversion-focused storefront experience with reliable product browsing and end-to-end shopping flows.",
+    github: "https://github.com/youssefmoharm/Nervee.shop",
+    demo: "https://www.nerveey.shop/",
+    cover: "/project-covers/nerve-cover.svg",
+    coverAlt: "NERVE brand logo",
+    accent: "accent",
+  },
+  {
+    id: "examly",
+    title: "Examly",
+    description:
+      "Examly is an AI-powered online examination platform designed to simplify exam creation, management, and delivery. It provides educators and organizations with a modern platform for building and managing online exams efficiently.",
+    highlights: [
+      "Designed online assessment workflows for exam creation, question management, and delivery",
+      "Focused on AI-assisted education tooling and modern web-based exam UX",
+      "Built to support production-oriented educational technology workflows",
+    ],
+    tech: ["AI", "EdTech", "Web Platform", "Automation", "Assessment", "Modern UX"],
+    impact:
+      "A production-oriented platform for AI-powered education, delivery automation, and modern online assessment experiences.",
+    github: "https://github.com/KerolosNader69/examly",
+    demo: "https://examly.site/",
+    cover: "/project-covers/examly-cover.svg",
+    coverAlt: "Examly brand logo",
+    accent: "primary",
+  },
   // ── Web ───────────────────────────────────────────────────
   {
     id: "image-enhancement-web",
@@ -230,24 +285,6 @@ export const PROJECTS = [
     demo: null,
     accent: "accent",
   },
-  // ── Java / OOP ────────────────────────────────────────────
-  {
-    id: "hospital-system",
-    title: "Hospital Management System",
-    description:
-      "Java software streamlining hospital operations: patient management, appointment scheduling, billing, and reporting. Uses BSTs and queues with a GUI frontend.",
-    highlights: [
-      "BST for patient records, queue for appointment scheduling",
-      "GUI interface for patient management and billing",
-      "Reporting module for data-driven decision-making",
-    ],
-    tech: ["Java", "Data Structures", "BST", "GUI", "OOP"],
-    impact:
-      "Automates core hospital workflows — registration, appointment flow, and billing — in a single desktop application.",
-    github: "https://github.com/youssefmoharm/Hospital-system",
-    demo: null,
-    accent: "primary",
-  },
 ];
 
 export const EXPERIENCE = [
@@ -255,7 +292,7 @@ export const EXPERIENCE = [
     type: "work",
     title: "Freelance AI Consultant",
     org: "Outlier AI",
-    period: "2024 — Present",
+    period: "2024 — 2025",
     location: "Remote",
     description:
       "Analyzed and refined training datasets for ML model improvement, evaluated model outputs, and contributed to AI projects across computer vision, NLP, and reasoning domains.",
@@ -296,7 +333,7 @@ export const EXPERIENCE = [
     type: "education",
     title: "B.Sc. in Computer Science",
     org: "Alamein International University (AIU)",
-    period: "2023 — Expected 2026",
+    period: "2023 — Expected 2027",
     location: "Alexandria, Egypt",
     description:
       "Focused coursework spanning AI, algorithms, and software engineering with a consistent emphasis on building deployable, tested systems.",
@@ -308,22 +345,14 @@ export const EXPERIENCE = [
 ];
 
 export const CERTIFICATIONS = [
-  {
-    id: "oop",
-    title: "Object-Oriented Programming",
-    issuer: "ITI — Information Technology Institute",
-    date: "2025",
-    category: "Programming",
-    file: "/certs/OOP.pdf",
-  },
-  {
-    id: "ml",
-    title: "Machine Learning",
-    issuer: "ITI — Information Technology Institute",
-    date: "2025",
-    category: "AI / ML",
-    file: "/certs/Machine Learning.pdf",
-  },
+   {
+     id: "ml",
+     title: "Machine Learning",
+     issuer: "ITI — Information Technology Institute",
+     date: "2025",
+     category: "AI / ML",
+     file: "/certs/Machine Learning.pdf",
+   },
   {
     id: "neural",
     title: "Neural Networks",
@@ -357,14 +386,6 @@ export const CERTIFICATIONS = [
     file: "/certs/Image processing.pdf",
   },
   {
-    id: "data-science",
-    title: "Basics of Data Science",
-    issuer: "ITI — Information Technology Institute",
-    date: "2025",
-    category: "Data Science",
-    file: "/certs/Basics of Data Science.pdf",
-  },
-  {
     id: "stats",
     title: "Statistics",
     issuer: "ITI — Information Technology Institute",
@@ -379,22 +400,6 @@ export const CERTIFICATIONS = [
     date: "2025",
     category: "Programming",
     file: "/certs/Ordered Data Structures.pdf",
-  },
-  {
-    id: "python",
-    title: "Basics of Python",
-    issuer: "ITI — Information Technology Institute",
-    date: "2025",
-    category: "Programming",
-    file: "/certs/Basics of Python.pdf",
-  },
-  {
-    id: "python-coursera",
-    title: "Programming for Everybody (Python)",
-    issuer: "Coursera",
-    date: "2025",
-    category: "Programming",
-    file: "/certs/Programming for Everybody python.pdf",
   },
   {
     id: "cpp",

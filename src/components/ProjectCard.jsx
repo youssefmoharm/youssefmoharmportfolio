@@ -20,9 +20,11 @@ const COVERS = {
   "image-enhancer":        "from-teal-500/20 via-cyan-500/10 to-transparent",
   "smart-city":            "from-emerald-500/20 via-green-500/10 to-transparent",
   "medical-diagnosis":     "from-rose-500/20 via-pink-500/10 to-transparent",
+  "text-to-sql-platform":  "from-cyan-500/20 via-teal-500/10 to-transparent",
+  "nerve":                 "from-fuchsia-500/20 via-pink-500/10 to-transparent",
+  "examly":                "from-indigo-500/20 via-blue-500/10 to-transparent",
   "image-enhancement-web": "from-teal-500/20 via-green-500/10 to-transparent",
   "computer-network":      "from-slate-500/20 via-gray-500/10 to-transparent",
-  "hospital-system":       "from-red-500/20 via-orange-500/10 to-transparent",
 };
 
 const COVER_ICONS = {
@@ -31,9 +33,11 @@ const COVER_ICONS = {
   "image-enhancer":        "🏥",
   "smart-city":            "🏙️",
   "medical-diagnosis":     "🧠",
+  "text-to-sql-platform":  "🗃️",
+  "nerve":                 "🛍️",
+  "examly":                "📝",
   "image-enhancement-web": "🖼️",
   "computer-network":      "🌐",
-  "hospital-system":       "🏥",
 };
 
 export default function ProjectCard({ project }) {
@@ -55,22 +59,41 @@ export default function ProjectCard({ project }) {
       className="flex flex-col h-full overflow-hidden"
     >
       {/* Cover banner */}
-      <div
-        className={`relative h-24 w-full bg-gradient-to-br ${COVERS[project.id] || "from-primary/20 to-transparent"} flex items-center justify-between px-6`}
-      >
-        <span className="text-4xl select-none">{COVER_ICONS[project.id] || "✨"}</span>
-        <div className="flex items-center gap-2">
-          {/* Share button */}
-          <button
-            onClick={handleShare}
-            title="Copy link"
-            className="flex items-center justify-center w-8 h-8 rounded-xl2 bg-black/20 border border-white/10 text-text-muted hover:text-accent hover:border-accent/40 transition-all duration-200"
-          >
-            {copied ? <FaCheck className="text-xs text-accent" /> : <FaShareAlt className="text-xs" />}
-          </button>
-
+      {project.cover ? (
+        <div className="relative h-36 w-full overflow-hidden border-b border-white/10 bg-black/20">
+          <img
+            src={project.cover}
+            alt={project.coverAlt || `${project.title} cover`}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+          <div className="absolute right-4 top-4 flex items-center gap-2 z-10">
+            <button
+              onClick={handleShare}
+              title="Copy link"
+              className="flex items-center justify-center w-8 h-8 rounded-xl2 bg-black/25 border border-white/10 text-white/80 hover:text-accent hover:border-accent/40 transition-all duration-200 backdrop-blur-sm"
+            >
+              {copied ? <FaCheck className="text-xs text-accent" /> : <FaShareAlt className="text-xs" />}
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div
+          className={`relative h-24 w-full bg-gradient-to-br ${COVERS[project.id] || "from-primary/20 to-transparent"} flex items-center justify-between px-6`}
+        >
+          <span className="text-4xl select-none">{COVER_ICONS[project.id] || "✨"}</span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleShare}
+              title="Copy link"
+              className="flex items-center justify-center w-8 h-8 rounded-xl2 bg-black/20 border border-white/10 text-text-muted hover:text-accent hover:border-accent/40 transition-all duration-200"
+            >
+              {copied ? <FaCheck className="text-xs text-accent" /> : <FaShareAlt className="text-xs" />}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Content */}
       <div className="p-6 md:p-7 flex flex-col flex-1">
@@ -115,12 +138,14 @@ export default function ProjectCard({ project }) {
 
         {/* Actions */}
         <div className="mt-auto flex items-center gap-3">
-          <Button href={project.github} variant="secondary" icon={FaGithub} className="flex-1">
-            View Code
-          </Button>
+          {project.github && (
+            <Button href={project.github} variant="secondary" icon={FaGithub} className="flex-1">
+              View Code
+            </Button>
+          )}
           {project.demo && (
             <Button href={project.demo} variant="primary" icon={FaExternalLinkAlt} className="flex-1">
-              Live Demo
+              Visit Website
             </Button>
           )}
         </div>

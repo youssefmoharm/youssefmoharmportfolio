@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { TbTargetArrow, TbBulb, TbCode } from "react-icons/tb";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { TbTargetArrow, TbBulb, TbCode, TbX } from "react-icons/tb";
 import SectionWrapper from "../components/SectionWrapper";
 import SectionHeading from "../components/SectionHeading";
 import Card from "../components/Card";
@@ -24,6 +25,8 @@ const pillars = [
 ];
 
 export default function About() {
+  const [photoExpanded, setPhotoExpanded] = useState(false);
+
   return (
     <SectionWrapper id="about">
       <SectionHeading
@@ -31,6 +34,42 @@ export default function About() {
         title="Engineer first, ML practitioner by focus"
         subtitle="A bit about how I got here, and how I approach building AI systems."
       />
+
+      <AnimatePresence>
+        {photoExpanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setPhotoExpanded(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full max-w-3xl overflow-hidden rounded-3xl border border-white/10 bg-surface shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setPhotoExpanded(false)}
+                className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/40 text-text-primary transition hover:bg-white/10"
+                aria-label="Close profile photo"
+              >
+                <TbX className="text-xl" />
+              </button>
+
+              <img
+                src={profileImg}
+                alt="Youssef Moharm portrait expanded"
+                className="h-[80vh] w-full object-cover object-center"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Profile photo + narrative */}
       <div className="grid md:grid-cols-5 gap-10 md:gap-12 items-start mb-12">
@@ -44,12 +83,12 @@ export default function About() {
         >
           {/* Photo — visible on mobile at top, hidden on md (shown in sidebar) */}
           <div className="flex md:hidden justify-center mb-6">
-            <ProfilePhoto />
+            <ProfilePhoto onExpand={() => setPhotoExpanded(true)} />
           </div>
 
           <p>
             I'm a Computer Science student at Alamein International University
-            in Alexandria, Egypt — graduating in 2026. My coursework spans
+            in Alexandria, Egypt — graduating in 2027. My coursework spans
             Natural Language Processing, Knowledge-Based Systems, Mathematical
             Optimization, Algorithms, and Web Development. I treat each course
             as a chance to build something that works end-to-end, not just
@@ -88,7 +127,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="hidden md:flex justify-center mb-2"
           >
-            <ProfilePhoto />
+            <ProfilePhoto onExpand={() => setPhotoExpanded(true)} />
           </motion.div>
 
           {pillars.map((pillar, index) => {
@@ -119,17 +158,24 @@ export default function About() {
   );
 }
 
-function ProfilePhoto() {
+function ProfilePhoto({ onExpand }) {
   return (
-    <div className="relative w-48 h-48 md:w-52 md:h-52">
+    <button
+      type="button"
+      onClick={onExpand}
+      className="relative w-full max-w-[12rem] sm:max-w-[13.5rem] md:max-w-[15rem] aspect-square cursor-pointer rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/80 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      aria-label="Open profile photo"
+    >
       {/* Rotating gradient ring */}
       <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary via-accent to-primary animate-spin-slow opacity-70 blur-[2px]" />
       {/* Photo */}
-      <div className="absolute inset-[3px] rounded-full overflow-hidden border-2 border-bg">
+      <div className="absolute inset-[4px] rounded-full overflow-hidden border-2 border-bg shadow-[0_0_30px_rgba(59,130,246,0.2)]">
         <img
           src={profileImg}
           alt="Youssef Moharm"
-          className="w-full h-full object-cover object-top"
+          className="h-full w-full object-cover object-[center_top] scale-[1.08] transition-transform duration-300 group-hover:scale-[1.12]"
+          loading="eager"
+          style={{ objectPosition: "center top" }}
         />
       </div>
       {/* Online badge */}
@@ -138,6 +184,6 @@ function ProfilePhoto() {
         <span className="w-1.5 h-1.5 rounded-full bg-accent relative" />
         Open to work
       </span>
-    </div>
+    </button>
   );
 }

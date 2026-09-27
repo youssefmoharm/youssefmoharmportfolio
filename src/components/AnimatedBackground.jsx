@@ -13,11 +13,11 @@ function seededRandom(seed) {
 /**
  * AnimatedBackground
  * Futuristic grid + glow backdrop used behind the Hero section.
- * Particle positions are randomised each session using a time-based seed.
+ * Particle positions are generated from a stable seed so they remain deterministic across renders.
  */
 export default function AnimatedBackground() {
   const particles = useMemo(() => {
-    const rand = seededRandom(Date.now() % 9999);
+    const rand = seededRandom(2025);
     return Array.from({ length: 14 }, (_, i) => ({
       id: i,
       top: rand() * 100,

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaGithub } from "react-icons/fa";
 import SectionHeading from "../components/SectionHeading";
 import ProjectCard from "../components/ProjectCard";
+import Button from "../components/Button";
 import { PROJECTS } from "../data/portfolioData";
 
-const FILTERS = ["All", "ML", "NLP", "Algorithms", "Web", "Java"];
+const FILTERS = ["All", "ML", "NLP", "Algorithms", "Web"];
 
 const PROJECT_CATEGORIES = {
   "misinformation":         ["ML", "NLP"],
@@ -12,9 +14,11 @@ const PROJECT_CATEGORIES = {
   "image-enhancer":         ["ML", "Web"],
   "smart-city":             ["Algorithms"],
   "medical-diagnosis":      ["ML", "Web"],
+  "text-to-sql-platform":   ["ML", "NLP"],
+  "nerve":                 ["Web"],
+  "examly":                ["Web"],
   "image-enhancement-web":  ["Web"],
   "computer-network":       ["Web"],
-  "hospital-system":        ["Java"],
 };
 
 export default function Projects() {
@@ -30,7 +34,7 @@ export default function Projects() {
         <SectionHeading
           eyebrow="Selected Work"
           title="Projects"
-          subtitle="Systems I've built end-to-end — from raw data to a working interface."
+          subtitle="Selected projects across AI, data, algorithms, and software."
         />
 
         {/* Filter tabs */}
@@ -87,6 +91,16 @@ export default function Projects() {
             )}
           </motion.div>
         </AnimatePresence>
+
+        <div className="mt-10 flex justify-center">
+          <Button
+            href="https://github.com/youssefmoharm?tab=repositories"
+            variant="secondary"
+            icon={FaGithub}
+          >
+            View all projects on GitHub
+          </Button>
+        </div>
       </div>
     </section>
   );
