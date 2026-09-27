@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineArrowDown } from "react-icons/hi";
-import { FaRocket, FaEnvelope, FaDownload } from "react-icons/fa";
+import { FaRocket, FaEnvelope, FaDownload, FaEye } from "react-icons/fa";
 import AnimatedBackground from "../components/AnimatedBackground";
 import Button from "../components/Button";
 import { HERO_ROLES } from "../data/portfolioData";
@@ -123,15 +123,25 @@ export default function Hero() {
           <Button href="#contact" variant="secondary" icon={FaEnvelope}>
             Contact Me
           </Button>
-          <Button
-            href="/Youssef-Moharm-resume.pdf"
-            download="Youssef-Moharm-Resume.pdf"
-            variant="ghost"
-            icon={FaDownload}
-            className="text-text-muted hover:text-accent border border-white/10 hover:border-accent/40 rounded-xl2 px-5 py-3 transition-colors duration-300"
-          >
-            Download CV
-          </Button>
+          <div className="flex items-center gap-2">
+            <a
+              href="/Youssef-Moharm-resume.pdf"
+              download="Youssef-Moharm-Resume.pdf"
+              className="inline-flex items-center justify-center gap-2 rounded-xl2 border border-white/10 px-4 py-3 text-sm font-medium text-text-muted transition-colors duration-300 hover:border-accent/40 hover:text-accent"
+            >
+              <FaDownload className="text-base" />
+              Download CV
+            </a>
+            <a
+              href="/Youssef-Moharm-resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-xl2 border border-white/10 px-4 py-3 text-sm font-medium text-text-muted transition-colors duration-300 hover:border-accent/40 hover:text-accent"
+            >
+              <FaEye className="text-base" />
+              View CV
+            </a>
+          </div>
         </motion.div>
 
         {/* Floating scroll cue */}
